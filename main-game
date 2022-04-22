@@ -1,0 +1,177 @@
+#Tic Tac Toe
+#Create a game that allows two players to play a game
+#To win game: 3 in a row - congrats! play again? 
+#Once all spaces are filled Cats game - cats game. Play again?
+#two players - two different win screens (player 1 wins!/player 2 wins!)
+#once a game is over have the option to play again or exit
+
+
+
+row1 = [1,2,3,4,5,6,7,8,9] #this is the game board we are playing on. 
+
+
+#print gameboard
+def display(row1):
+
+    print('')
+    print(str(row1[0]) + '|' + str(row1[1]) + '|' + str(row1[2])) #displays the first row 
+    print(str(row1[3]) + '|' + str(row1[4]) + '|' + str(row1[5])) #displays the second row
+    print(str(row1[6]) + '|' + str(row1[7]) + '|' + str(row1[8])) #displays the third row
+    print('')
+
+
+#Player 1 Input Name
+def ready_To_Start_Player1(): 
+    player1_ready = 'default' #sets player ready status to default 
+    player1_name = input('Player 1, what is your name? ') #collects name information from player 1
+    
+    while player1_ready not in ['yes', 'Yes','Yes!','y','Y','ye']: #keep running this while loop until player is ready. Once player is ready move to next function
+
+        if player1_ready not in ['yes', 'Yes','Yes!','y','Y','ye']: #if player is not ready
+
+            player1_ready = input(f'{player1_name}, are you ready? ') # allows player to change to ready status
+
+            if player1_ready not in ['yes', 'Yes','Yes!','y','Y','ye']: #if player states they are not ready
+                print(f"Sorry you aren't ready u lil bitch. {player1_name}, are you ready now?") #print this statement
+
+    return player1_name
+
+#Player 2 Input Name
+def ready_To_Start_Player2(): 
+    player2_ready = 'default' # sets player ready status to default 
+    player2_name = input('Player 2, what is your name? ') #collects name information from player 2 
+
+    while player2_ready not in ['yes', 'Yes','Yes!','y','Y','ye']: #keep running this code if player is not ready 
+
+        if player2_ready not in ['yes', 'Yes','Yes!','y','Y','ye']: #if player is not ready 
+
+            player2_ready = input(f'{player2_name}, are you ready? ') # allows player to change to ready status
+
+            if player2_ready not in ['yes', 'Yes','Yes!','y','Y','ye']: #if player states they are not ready
+                print(f'{player2_name}, are you ready now? Hurry the fuck up.  ') #print this statenet
+
+    return player2_name #returns player2_name as a variable
+
+
+
+#Have player select a position in number list  for player 1
+#I need to create a way where if an X and O are already marked it cannot make that move 
+def row_Choice_P1(row1,player1_name):
+    
+    row_Selection = '' #default row selection for player to make when it's their turn 
+    error_Move = 'X' or 'O'
+    
+    #while row choice not in this list - keep repeating below
+    while row_Selection not in ['1','2','3','4','5','6','7','8','9',]:
+
+        #if your choice is not in this list
+        if row_Selection not in ['1','2','3','4','5','6','7','8','9']:
+
+            row_Selection = input(f'{player1_name}: Pick a row position (1-9): ')
+
+            #forces choice input 1-9 or has been taken 
+            if row_Selection not in ['1','2','3','4','5','6','7','8','9','X','O']:
+                print(f'Sorry {player1_name}, invalid choice.')
+
+
+    
+        
+    #return int value
+    position = int(row_Selection) 
+
+    row1[position - 1] = 'X'
+    return display(list(row1))
+
+
+
+#have player select a position in number list for player 2
+def row_Choice_P2(row1,player2_name):
+
+    row_Selection = 'wrong'
+    
+    #while row choice not in this list - keep repeating below
+    while row_Selection not in ['1','2','3','4','5','6','7','8','9']:
+
+        #if your choice is not in this list
+        if row_Selection not in ['1','2','3','4','5','6','7','8','9']:
+
+            row_Selection = input(f'{player2_name}: Pick a row position (1-9): ')
+
+            #forces choice input 1-9
+            if row_Selection not in ['1','2','3','4','5','6','7','8','9']:
+                print(f'Sorry {player2_name}, invalid choice.')
+
+     #return int value
+    position = int(row_Selection) 
+
+    row1[position - 1] = 'O'
+    return display(list(row1))
+
+
+def win_Condition(row1,player1_name,player2_name): #sets all possible win conditions for each player
+
+    if row1[0] == row1[1] == row1[2] == 'X' or row1[0] == row1[4] == row1[8] == 'X' or row1[0] == row1[3] == row1[6] == 'X':
+        print(f'{player1_name} Wins!')
+    elif row1[1] == row1[4] == row1[7] == 'X' or row1[2] == row1[5] == row1[8] == 'X' or row1[2] == row1[4] == row1[6] == 'X':
+        print(f'{player1_name} Wins!')
+    elif row1[3] == row1[4] == row1[5] == 'X' or row1[6] == row1[7] == row1[8] == 'X':
+        print(f'{player1_name} Wins!')
+    elif row1[0] == row1[1] == row1[2] == 'O' or row1[0] == row1[4] == row1[8] == 'O' or row1[0] == row1[3] == row1[6] == 'O':
+        print(f'{player2_name} Wins!')
+    elif row1[1] == row1[4] == row1[7] == 'O' or row1[2] == row1[5] == row1[8] =='O' or row1[2] == row1[4] == row1[6] == 'O':
+        print(f'{player2_name} Wins!')
+    elif row1[3] == row1[4] == row1[5] == 'O' or row1[6] == row1[7] == row1[8] == 'O':
+        print(f'{player2_name} Wins!')
+    elif row1[0] != 1 and row1[1] != 2 and row1[2] != 3 and row1[3] != 4 and row1[4] != 5 and row1[5] != 6 and row1[6] != 7 and row1[7] != 8 and row1[8] != 9:
+        print('Cats Game')  #In the event there's no one wins after 9 rows have all been changed ==> cats game
+    else:
+        return False
+
+
+#function that sets the win condition and to keep playing
+def game_On_Choice():
+
+    choice = '' #default setting for play again option
+
+    while choice not in ['Yes', 'yes','No','no', 'Y','N' ]: #run while loop if choice is not yes or no
+
+        choice = input("Keep Playing? Y or N ") #player makes input
+        print('')
+        print('')
+        print('')
+
+        if choice not in ['Yes', 'yes','No','no', 'Y','N']: #options for computer to understand
+            
+            print("Sorry,I don't understand. Y or N?")
+
+    if choice == "Y" or 'Yes' or 'yes': # if choice is any of these options
+        
+        return True #keep playing
+    
+    else:
+        
+        return False #stop playing and exit code
+
+    
+#mainfunction
+game_On = True
+
+while game_On:
+        
+    print("Welcome to Tic Tac Toe!")
+    print('')
+
+
+    
+    player1 = ready_To_Start_Player1()
+    player2 = ready_To_Start_Player2()
+    display(row1)
+    
+    while win_Condition(row1,player1,player2) == False:
+
+        position = row_Choice_P1(row1,player1)
+        position = row_Choice_P2(row1,player2)
+
+    row1.clear()
+    row1 = [1,2,3,4,5,6,7,8,9]
+    game_On = game_On_Choice()
